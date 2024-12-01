@@ -151,9 +151,11 @@
 	..()
 	if(isliving(AM) && activated)
 		var/mob/living/L = AM
-		L.adjustFireLoss(50+activator_bonus)
-		playsound(loc, 'code/modules/wod13/sounds/thaum.ogg', 50, FALSE)
-		qdel(src)
+		var/obj/item/card/id/id_card = L.get_idcard(FALSE)
+		if(!istype(id_card, /obj/item/card/id/archive))
+			L.apply_damage(50+activator_bonus, BURN)
+			playsound(loc, 'code/modules/wod13/sounds/thaum.ogg', 50, FALSE)
+			qdel(src)
 
 /obj/ritualrune/blood_wall
 	name = "Blood Wall"
