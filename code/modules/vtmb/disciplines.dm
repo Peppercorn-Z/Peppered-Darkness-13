@@ -1234,6 +1234,9 @@
 				playsound(get_turf(target), 'code/modules/wod13/sounds/vomit.ogg', 75, TRUE)
 				target.add_splatter_floor(get_turf(target))
 				target.add_splatter_floor(get_turf(get_step(target, target.dir)))
+				var/sucked = min(target.bloodpool, level_casting-2)
+				target.bloodpool = target.bloodpool-sucked
+				caster.bloodpool = min(caster.maxbloodpool, caster.bloodpool+sucked)
 			else
 				caster.bloodpool = min(caster.maxbloodpool, caster.bloodpool + target.bloodpool)
 				if(!istype(target, /mob/living/simple_animal/hostile/megafauna))
